@@ -28,6 +28,8 @@ class Program
 
     static void OsonOperatorTanlash()
     {
+        try
+        {
         Console.WriteLine("siz simple calkulationni tanladingiz.");
         Console.WriteLine("inter first number:");
         double a = double.Parse(Console.ReadLine());
@@ -50,25 +52,49 @@ class Program
         }
         else if (operators == '*')
         {
+            if(a < 0 || b < 0)
+                {
+                    throw new Exception("0 qiymat kiritilmasin kupaytirib bulmaydi");
+                }
             double result2 = a * b;
             Console.WriteLine("Result:" + result2);
         }
         else if (operators == '/')
         {
+            if(a < 0 || b < 0)
+                {
+                    throw new Exception("0 qiymat kiritilmasin bulib bulmaydi");
+                }
             if (b == 0)
             {
                 Console.WriteLine("Xato: 0 ga bo'lish mumkin emas!");
             }
             else
             {
+                    try
+                    {
+                        double result3 = a / b;
+                        Console.WriteLine("Result:" + result3);
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        Console.WriteLine("nolga buliw mumkin emasde");
+                    }
                 double result3 = a / b;
                 Console.WriteLine("Result:" + result3);
             }
         }
-        else
-        {
-            Console.WriteLine("Noto'g'ri operator!");
+            else   
+            {
+                Console.WriteLine("Noto'g'ri operator!");
+            }
         }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+
     }
 
     static void QiyinOperatorTanlash()
@@ -76,8 +102,9 @@ class Program
         Console.WriteLine("you inter dificult calculation");
         Console.WriteLine("sizga aynan qaysi murakkab amal natijasi kerak tanlang:");
         Console.WriteLine("1.sonni darajasini topish. 2.sonni ildizini topish.");
-
-        int dificultOperator = int.Parse(Console.ReadLine());
+        try
+        {
+            int dificultOperator = int.Parse(Console.ReadLine());
 
         switch (dificultOperator)
         {
@@ -97,7 +124,30 @@ class Program
                 Console.WriteLine("Siz bilan sonning ildizini topamiz.");
                 Console.WriteLine("Ixtiyoriy son kiriting:");
                 double dificultNumberIldiz = double.Parse(Console.ReadLine());
-
+                    try
+                    {
+                        if(dificultNumberIldiz < 0)
+                    {
+                        throw new Exception("xatolik");
+                    }
+                if (dificultNumberIldiz < 0)
+                {
+                    Console.WriteLine("Manfiy son kiritmang!!!");
+                }
+                else
+                {
+                    double ildiz = Math.Sqrt(dificultNumberIldiz);
+                    Console.WriteLine($"{dificultNumberIldiz} ning ildizi = {ildiz:F4}"); // F4 - 4 xona aniqlik
+                }        
+                    }
+                    catch(DivideByZeroException)
+                    {
+                        Console.WriteLine("nulga buliw mumkinmasda");
+                    }
+                if(dificultNumberIldiz < 0)
+                    {
+                        throw new Exception("xatolik");
+                    }
                 if (dificultNumberIldiz < 0)
                 {
                     Console.WriteLine("Manfiy son kiritmang!!!");
@@ -112,6 +162,12 @@ class Program
             default:
                 Console.WriteLine("Noto'g'ri tanlov! Faqat 1 yoki 2 ni tanlang.");
                 break;
+        } 
         }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+       
     }
 }
